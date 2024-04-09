@@ -1,0 +1,13 @@
+@use '../../../styles/variables' as var;
+
+
+.inputWrapper{
+    width: 100%;
+    display: flex;
+    border-radius: var.$border;
+    background-color: red;
+    
+    input{
+        border: none;
+    }
+}
