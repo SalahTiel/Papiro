@@ -1,13 +1,18 @@
 @use '../../../styles/variables' as var;
 
-
+/*  This stylesheet should only be used in the "Forms" component because the input components -
+    are the same for every application, so its class is defined in a conditional way to -
+    change the style depending on the form in which it is used.
+*/
 .inputWrapper{
     width: 100%;
     display: flex;
     border-radius: var.$border;
-    background-color: red;
+    background-color: blue;
     
     input{
         border: none;
     }
 }
+//LOG FORMS* STYLE
+//NEW PAYER FORMS STYLE

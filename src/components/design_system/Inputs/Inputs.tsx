@@ -1,31 +1,86 @@
-import styles from './Inputs.module.scss'
-import { ChangeEvent } from 'react'
+import React, { ChangeEvent } from 'react'
 
 interface FunctionalComponente{
-    handleFunction: (parameter:string)=> void 
+    handleFunction: (InputType: string, InputValue: string) => void
+    className: string
 }
-export const EmailInput : React.FC<FunctionalComponente> = ({handleFunction}) => {
+
+
+
+export const NameInput : React.FC<FunctionalComponente> = ({handleFunction, className}) => {
     const getTypedString = (event : ChangeEvent<HTMLInputElement>) => {
-        handleFunction(event.target.value)
+        handleFunction('name', event.target.value)
     }
 
     return(
-        <div className={styles.inputWrapper}>
+        <div className={className}>
             <p>insert icon</p>
-            <input onChange={getTypedString} className={styles.input} type="email"></input>
+            <input onChange={getTypedString} type="name" placeholder='nome'></input>
         </div>
         )
 }
 
-export const PasswordInput : React.FC<FunctionalComponente> = ({handleFunction}) => {
+export const EmailInput : React.FC<FunctionalComponente> = ({handleFunction, className}) => {
     const getTypedString = (event : ChangeEvent<HTMLInputElement>) => {
-        handleFunction(event.target.value)
+        handleFunction('email', event.target.value)
     }
 
     return(
-    <div className={styles.inputWrapper}>
+        <div className={className}>
+            <p>insert icon</p>
+            <input onChange={getTypedString} type="email" placeholder='email'></input>
+        </div>
+        )
+}
+
+export const PasswordInput : React.FC<FunctionalComponente> = ({handleFunction, className}) => {
+    const getTypedString = (event : ChangeEvent<HTMLInputElement>) => {
+        handleFunction('password' , event.target.value)
+    }
+
+    return(
+    <div className={className}>
         <p>insert icon</p>
-        <input onChange={getTypedString} className={styles.input} type="password"></input>
+        <input onChange={getTypedString} type="password" placeholder='senha'></input>
+    </div>
+    )
+}
+
+export const DateInput : React.FC<FunctionalComponente> = ({handleFunction, className}) => {
+    const getTypedString = (event : ChangeEvent<HTMLInputElement>) => {
+        handleFunction('date' , event.target.value)
+    }
+
+    return(
+    <div className={className}>
+        <p>insert icon</p>
+        <input onChange={getTypedString} type="date"></input>
+    </div>
+    )
+}
+
+export const NumberInput : React.FC<FunctionalComponente> = ({handleFunction, className}) => {
+    const getTypedString = (event : ChangeEvent<HTMLInputElement>) => {
+        handleFunction('number' , event.target.value)
+    }
+
+    return(
+    <div className={className}>
+        <p>insert icon</p>
+        <input onChange={getTypedString} type="number" placeholder='valor'></input>
+    </div>
+    )
+}
+
+export const TelInput : React.FC<FunctionalComponente> = ({handleFunction, className}) => {
+    const getTypedString = (event : ChangeEvent<HTMLInputElement>) => {
+        handleFunction('tel' , event.target.value)
+    }
+
+    return(
+    <div className={className}>
+        <p>insert icon</p>
+        <input onChange={getTypedString} type="tel" placeholder='telefone'></input>
     </div>
     )
 }
