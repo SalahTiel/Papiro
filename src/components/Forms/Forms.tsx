@@ -2,10 +2,10 @@ import { EmailInput, PasswordInput, NameInput, DateInput, NumberInput, TelInput 
 import { SubmitButton } from "../design_system/Buttons/Buttons";
 import Link from "next/link";
 
-import { useState, useEffect, useId, use } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import {UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth"
+import {UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, updateProfile} from "firebase/auth"
 import {doc, setDoc} from "firebase/firestore"
 import {auth, db} from "../../services/firebaseConfig"
 
@@ -42,29 +42,29 @@ export function LoginForm(){
     //login using firebase authentication
     const login = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const span = document.querySelector('span') 
+        const errorMessage = document.getElementById('errorMessage')
+        if(errorMessage){
+            errorMessage.style.visibility = 'hidden'
+        }
         signInWithEmailAndPassword(auth, email, password)
         .then((credentials : UserCredential)=>{
-            const userEmail = credentials.user.email
             const uid = credentials.user.uid
-            //check if received value is not null and saves credetials in sessionStorage
-            if (uid && userEmail){
-                sessionStorage.setItem("uid", uid)
-                sessionStorage.setItem("userEmail", userEmail)
-            }
+            const user = credentials.user
+            console.log(user)
+            localStorage.setItem('uid', uid)
             setLoginSuccessful(true)
         })
         .catch((error : Error)=>{
-            if(span){
-            span.style.display = 'block'
+            if(errorMessage){
+                errorMessage.style.visibility = 'visible'
             }
         })
     }
 
     return(
     <form onSubmit={login}>
-        <legend>Olá! Faça login</legend>
-        <span className={style.errorFormMessage}>credencias inválidas</span>
+        <legend>Olá! Faça login:</legend>
+        <span id="errorMessage" className={style.errorFormMessage}>credencias inválidas</span>
         <EmailInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper} />
         <PasswordInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
         <SubmitButton text="entrar"/>
@@ -76,6 +76,7 @@ export function LoginForm(){
 
 
 export function RegisterForm(){
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [newUserRegistered, setNewUserRegistered] = useState(false)
@@ -83,6 +84,9 @@ export function RegisterForm(){
     //get input values
     const changeInputValue = (InputType: string, InputValue : string) => {
         switch(InputType){
+            case 'name':
+                setName(InputValue)
+                break
             case 'email':
                 setEmail(InputValue)
                 break
@@ -105,18 +109,14 @@ export function RegisterForm(){
             .then((credentials) => {
                 //set new user on firestore database
                 const uid = credentials.user.uid
+                const user = credentials.user
                 const data = {
                     'totalPayers' : 0,
                     'revenue' : 0
                 }
+                const res = updateProfile(user, {displayName: name})
+                console.log(res)
                 setDoc(doc(db, "users", uid),data)
-
-                try{
-                    const reference = doc(db, 'users', credentials.user.uid)
-                    console.log(reference)
-                }catch(error){
-                    console.log(error)
-                }
 
                 setNewUserRegistered(true)
             })
@@ -149,6 +149,7 @@ export function RegisterForm(){
                 <legend>Seja bem-vindo! Registre-se</legend>
                 <span className={style.errorFormMessage}>email inválido</span>
                 <span className={style.errorFormMessage}>a senha deve conter no minimo seis caracteres</span>
+                <NameInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
                 <EmailInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
                 <PasswordInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
                 <SubmitButton text="register"/>
@@ -167,13 +168,17 @@ export function RegisterForm(){
 }
 
 
+interface FunctionalComponente{
+    getDataFunction : () => {}
+}
 
-export function NewPayer(){
+export const NewPayer : React.FC<FunctionalComponente> = ({getDataFunction}) =>{
     const [name, setName] = useState('')
     const [date, setDate] = useState('')
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState(0)
     const [tel, setTel] = useState('')
     const [email, setEmail] = useState('')
+    const [refreshData, setRefreshData] = useState(false)
     
     const changeInputValue = (InputType: string, InputValue : string) => {
         switch (InputType){
@@ -184,7 +189,8 @@ export function NewPayer(){
                 setDate(InputValue)
                 break
             case 'number':
-                setValue(InputValue)
+                const number = Number(InputValue)
+                setValue(number)
                 break
             case 'tel':
                 setTel(InputValue)
@@ -197,10 +203,13 @@ export function NewPayer(){
     
     async function registerNewPayer(event: React.FormEvent <HTMLFormElement>){
         event.preventDefault()
+        //const [uid, setUid] = useState(localStorage.getItem('uid'))
+        const uid = localStorage.getItem('uid')
+        setRefreshData(true)
         const data = {
             name, date, value, tel, email
         }
-        const response = await fetch('http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/go0zcDhH9XaXcx8H30ixgLpvO7t2',
+        const response = await fetch(`http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/${uid}`,
         {
             method: "POST",
             body:  JSON.stringify(data),
@@ -209,7 +218,11 @@ export function NewPayer(){
             }
         }
         )
+        setRefreshData(false)
     }
+    useEffect(()=>{
+        getDataFunction()
+    }, [refreshData])
     return(
         <form onSubmit={registerNewPayer}>
             <NameInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>

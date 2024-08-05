@@ -1,12 +1,17 @@
+@use '../../styles/variables' as var;
+
 .loginWrapper{
     position: absolute;
     display: flex;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-color: var.$light;
+    border-radius: var.$border-radius;
 
     &__leftSide{
         width: 50vw;
+        height: 50vh;
         max-width: 600px;
         background: url(../../../public/login-img.png);
         background-position: 80% center;
@@ -16,7 +21,7 @@
     &__content{
         padding: 2rem;
 
-        &__image{
+        &__logo{
             width: 200px;
             height: auto;
         }
