@@ -6,11 +6,12 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import {UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, updateProfile} from "firebase/auth"
-import {doc, setDoc} from "firebase/firestore"
+import {doc, setDoc, getDoc} from "firebase/firestore"
 import {auth, db} from "../../services/firebaseConfig"
 
 import style from './Forms.module.scss'
 import Inputstyle from '../design_system/Inputs/Inputs.module.scss'
+import { promises } from "dns";
 
 
 
@@ -32,6 +33,18 @@ export function LoginForm(){
         }
     }
 
+    const getName = async (uid : string) =>{
+        const snapshot = doc(db, 'users', uid)
+        if(snapshot){
+            const doc = await getDoc(snapshot)
+            const data = doc.data()
+            if (data) {
+                localStorage.setItem('displayName', data.displayName)
+            }
+        }
+        setLoginSuccessful(true)
+    }
+
     //redirect when login successful
     useEffect(()=>{
         if(loginSuccessful){
@@ -49,10 +62,9 @@ export function LoginForm(){
         signInWithEmailAndPassword(auth, email, password)
         .then((credentials : UserCredential)=>{
             const uid = credentials.user.uid
-            const user = credentials.user
-            console.log(user)
             localStorage.setItem('uid', uid)
-            setLoginSuccessful(true)
+            getName(uid)
+           
         })
         .catch((error : Error)=>{
             if(errorMessage){
@@ -112,10 +124,10 @@ export function RegisterForm(){
                 const user = credentials.user
                 const data = {
                     'totalPayers' : 0,
-                    'revenue' : 0
+                    'revenue' : 0,
+                    'displayName' : name
                 }
                 const res = updateProfile(user, {displayName: name})
-                console.log(res)
                 setDoc(doc(db, "users", uid),data)
 
                 setNewUserRegistered(true)

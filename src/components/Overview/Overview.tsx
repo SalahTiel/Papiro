@@ -12,6 +12,7 @@ export default function Overview () {
     const [payers, setPayers] = useState([])
     const [debts, setDebts] = useState([])
     const [uid, setUid] = useState<string | null>(null)
+    const [loading, setLoading] = useState(true)
 
     async function getData () {
         if(uid){
@@ -21,6 +22,7 @@ export default function Overview () {
             setDebts(data.debtlist)
             setTotalPayers(data.insightsData.totalPayers)
             setRevenue(data.insightsData.revenue)
+            
         }
     }
         
@@ -28,40 +30,46 @@ export default function Overview () {
         setUid(localStorage.getItem('uid'))
     })
 
-    useEffect(()=>{
-        getData()
+    useEffect(() =>{
+        const gambiarra = async () => {
+            const response = await getData()
+            setLoading(false)
+        }
+        gambiarra()
     },[])
-    
-    if(uid === null){
-        return <div>...CARREGANDO...</div>
+
+    useEffect(()=>{}, [])
+
+    if(loading){
+        return <div>CORONÉR AIIIII, IAAAAA</div>
     }
 
     return(
-    <div className={style.grid}>
-        <div>
-            <h2>Insights</h2>
+        <div className={style.grid}>
             <div>
-                <div className={style.card}>
-                    <p>n° de Pagantes :</p>
-                    <p>{totalPayers}</p>
-                </div>
-                <div className={style.card}>
-                    <p>receita :</p>
-                    <p>{revenue}</p>
+                <h2>Insights</h2>
+                <div>
+                    <div className={style.card}>
+                        <p>n° de Pagantes :</p>
+                        <p>{totalPayers}</p>
+                    </div>
+                    <div className={style.card}>
+                        <p>receita :</p>
+                        <p>{revenue}</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div>
-            <h2>Registrar</h2>
-            <NewPayer getDataFunction={getData}/>
-        </div>
+            <div>
+                <h2>Registrar</h2>
+                <NewPayer getDataFunction={getData}/>
+            </div>
 
-        <div>
-            <h2>Registros</h2>
-            <PayersList payersArray={payers} refreshData={getData}/>
-            <DebtList debtsArray={debts} refreshData={getData}/>
+            <div>
+                <h2>Registros</h2>
+                <PayersList payersArray={payers} refreshData={getData}/>
+                <DebtList debtsArray={debts} refreshData={getData}/>
+            </div>
         </div>
-    </div>
     )
 }
