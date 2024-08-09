@@ -67,7 +67,7 @@ export const NumberInput : React.FC<FunctionalComponente> = ({handleFunction, cl
     return(
     <div className={className}>
         <p>insert icon</p>
-        <input onChange={getTypedString} type="number" placeholder='valor'></input>
+        <input onChange={getTypedString} type="number" step="0.01" placeholder='valor'></input>
     </div>
     )
 }

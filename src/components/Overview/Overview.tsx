@@ -21,7 +21,8 @@ export default function Overview () {
             setPayers(data.payersData)
             setDebts(data.debtlist)
             setTotalPayers(data.insightsData.totalPayers)
-            setRevenue(data.insightsData.revenue)
+            const formatedRevenue = data.insightsData.revenue.toFixed(2)
+            setRevenue(formatedRevenue)
             
         }
     }
@@ -56,6 +57,7 @@ export default function Overview () {
                     <div className={style.card}>
                         <p>receita :</p>
                         <p>{revenue}</p>
+                        
                     </div>
                 </div>
             </div>

@@ -215,26 +215,30 @@ export const NewPayer : React.FC<FunctionalComponente> = ({getDataFunction}) =>{
     
     async function registerNewPayer(event: React.FormEvent <HTMLFormElement>){
         event.preventDefault()
-        //const [uid, setUid] = useState(localStorage.getItem('uid'))
         const uid = localStorage.getItem('uid')
-        setRefreshData(true)
-        const data = {
-            name, date, value, tel, email
+
+        if(name.length > 0 && date && value > 0){
+            setRefreshData(true)
+            const data = {name, date, value, tel, email}
+            const response = await fetch(`http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/${uid}`,
+            {
+                method: "POST",
+                body:  JSON.stringify(data),
+                headers:{
+                        "Content-Type" : "application/json"
+                }
+            })
+            setRefreshData(false)
         }
-        const response = await fetch(`http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/${uid}`,
-        {
-            method: "POST",
-            body:  JSON.stringify(data),
-            headers:{
-                "Content-Type" : "application/json"
-            }
+        else{
+            alert('Nome, data e valor são campos obrigatórios')
         }
-        )
-        setRefreshData(false)
     }
+
     useEffect(()=>{
         getDataFunction()
     }, [refreshData])
+
     return(
         <form onSubmit={registerNewPayer}>
             <NameInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>

@@ -15,7 +15,7 @@ interface PayersList{
 export const PayersList : React.FC<PayersList> = ({payersArray = [], refreshData}) => {
     const [selectedPayer, setSelectedPayer] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
-    const [payerData, setPayerData] = useState({id: '', name: ''})
+    const [payerData, setPayerData] = useState({id: '', name: '', value: '', date: '', email: '', tel: ''})
     const [uid, setUid] = useState<string | null>(localStorage.getItem('uid'))
 
     async function getPayersList (payerId : string){
@@ -61,6 +61,10 @@ export const PayersList : React.FC<PayersList> = ({payersArray = [], refreshData
             {modalOpen && (
                 <div className={style.modal}>
                     <p>{payerData.name}</p>
+                    <p>{payerData.value}</p>
+                    <p>{payerData.date}</p>
+                    <p>{payerData.email}</p>
+                    <p>{payerData.tel}</p>
                     <p onClick={()=>{toggleModal('nada')}}>FECHAR</p>
                     <button onClick={()=>{deletePayer(selectedPayer)}}>delete</button>
                     <button onClick={()=>{regularizePayer(selectedPayer)}}>adiantar pagamento</button>
