@@ -4,15 +4,35 @@
     are the same for every application, so its class is defined in a conditional way to -
     change the style depending on the form in which it is used.
 */
-.inputWrapper{
+@mixin formattedInputWrapper(){
     width: 100%;
     display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
     border-radius: var.$border-radius;
-    background-color: blue;
-    
+    background-color: var.$dark;
+
     input{
+        width: 100%;
+        height: 3rem;
         border: none;
+        outline: none;
+        font-size: var.$regular;
+        color: var.$main;
+        background-color: var.$dark;
     }
+
 }
-//LOG FORMS* STYLE
-//NEW PAYER FORMS STYLE
+
+.inputWrapper, .logInput{
+    @include formattedInputWrapper();
+}
+
+
+//ICON
+.icon{
+    width: var.$icon-size;
+    height: var.$icon-size;
+}

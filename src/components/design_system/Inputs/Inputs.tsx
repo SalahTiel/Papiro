@@ -1,4 +1,8 @@
 import React, { ChangeEvent } from 'react'
+import Image from 'next/image'
+
+import style from './Inputs.module.scss'
+
 
 interface FunctionalComponente{
     handleFunction: (InputType: string, InputValue: string) => void
@@ -14,7 +18,7 @@ export const NameInput : React.FC<FunctionalComponente> = ({handleFunction, clas
 
     return(
         <div className={className}>
-            <p>insert icon</p>
+            <Image className={style.icon} src="icon-person.svg" width={0} height={0} alt='ícone de email'/>
             <input onChange={getTypedString} type="name" placeholder='nome'></input>
         </div>
         )
@@ -27,7 +31,7 @@ export const EmailInput : React.FC<FunctionalComponente> = ({handleFunction, cla
 
     return(
         <div className={className}>
-            <p>insert icon</p>
+            <Image className={style.icon} src="icon-email.svg" width={0} height={0} alt='ícone de email'/>
             <input onChange={getTypedString} type="email" placeholder='email'></input>
         </div>
         )
@@ -40,7 +44,7 @@ export const PasswordInput : React.FC<FunctionalComponente> = ({handleFunction, 
 
     return(
     <div className={className}>
-        <p>insert icon</p>
+        <Image className={style.icon} src="icon-key.svg" width={0} height={0} alt='ícone de email'/>
         <input onChange={getTypedString} type="password" placeholder='senha'></input>
     </div>
     )

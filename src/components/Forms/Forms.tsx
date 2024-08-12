@@ -11,7 +11,7 @@ import {auth, db} from "../../services/firebaseConfig"
 
 import style from './Forms.module.scss'
 import Inputstyle from '../design_system/Inputs/Inputs.module.scss'
-import { promises } from "dns";
+
 
 
 
@@ -74,13 +74,16 @@ export function LoginForm(){
     }
 
     return(
-    <form onSubmit={login}>
+    <form className={style.form} onSubmit={login}>
         <legend>Olá! Faça login:</legend>
         <span id="errorMessage" className={style.errorFormMessage}>credencias inválidas</span>
-        <EmailInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper} />
-        <PasswordInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
-        <SubmitButton text="entrar"/>
-        <Link href="/register">Registre-se</Link>
+        <EmailInput handleFunction={changeInputValue} className={Inputstyle.logInput} />
+        <PasswordInput handleFunction={changeInputValue} className={Inputstyle.logInput}/>
+        <SubmitButton text="Entrar"/>
+        <div className={style.invite}>
+            <p>novo por aqui?</p>
+            <Link className={style.link} href="/register">Registre-se</Link>
+        </div>
     </form>
     )
 }
@@ -157,15 +160,16 @@ export function RegisterForm(){
     //conditional rendering
     if(!newUserRegistered){
         return(
-            <form onSubmit={registerUser}>
-                <legend>Seja bem-vindo! Registre-se</legend>
+            <form className={style.form} onSubmit={registerUser}>
+                <legend>Olá! Registre-se:</legend>
                 <span className={style.errorFormMessage}>email inválido</span>
-                <span className={style.errorFormMessage}>a senha deve conter no minimo seis caracteres</span>
                 <NameInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
                 <EmailInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
                 <PasswordInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
-                <SubmitButton text="register"/>
-                <Link href="/">ir para login</Link>
+                <SubmitButton text="Registrar"/>
+                <div className={style.invite}>
+                    <Link className={style.link} href="/">Ir para login</Link>
+                </div>
             </form>
         )
     }
