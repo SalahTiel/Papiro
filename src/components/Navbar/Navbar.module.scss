@@ -1,6 +1,67 @@
+@use '../../styles/variables' as var;
+
 .navbar{
-   padding: 2rem;
-}
-.perfil{
+    display: block;
+    position: relative;
+    height: 100%;
     padding: 2rem;
+    border-radius: var.$border-radius;
+    background-color: var.$light;
+
+    .logo{
+        width: 8rem;
+        height: auto;
+    }
+
+    nav ul{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-block: 2rem;
+
+        li{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;
+            font-size: var.$regular;
+            
+            a{
+                text-decoration: none;
+                color: var.$dark;
+            }
+
+            .selected{
+                font-weight: 700;
+                color: var.$main;
+            }
+        }
+    }
+
+    .perfil{
+        position: absolute;
+        bottom: 2rem;
+        
+        p{
+            font-weight: 700;
+            font-size: var.$subtitle;
+            color: var.$dark;
+            margin-bottom: 1rem;
+        }
+
+        a{
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: var.$regular;
+            text-decoration: none;
+            color: var.$gray;
+        }
+    }
+}
+
+
+.icon{
+    width: 2rem;
+    height: auto;
 }

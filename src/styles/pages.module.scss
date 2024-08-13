@@ -4,7 +4,9 @@
 }
 
 
-.home{
+.home, .settings{
+    height: 100vh;
+    overflow: hidden;
     display: flex;
     padding: 2rem;
     gap: 2rem;

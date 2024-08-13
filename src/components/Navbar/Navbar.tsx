@@ -3,7 +3,12 @@ import Link from "next/link";
 import style from "./Navbar.module.scss"
 import { useEffect, useState } from "react";
 
-export default function Navbar(){
+interface navbarProps{
+    currentPage: string
+}
+
+export const Navbar : React.FC<navbarProps> = ({currentPage}) => {
+    console.log(currentPage)
     const [name, setName] = useState<string | null>('')
 
     useEffect(()=>{
@@ -11,23 +16,40 @@ export default function Navbar(){
     })
 
     return(
-        <div>
-            <Image src="/logo.svg" width={100} height={100} alt="logo" />
-            <nav className={style.navbar}>
+        <div className={style.navbar}>
+            <Image className={style.logo} src="/logo.svg" width={0} height={0} alt="brand logo" />
+            <nav>
                 <ul>
-                    <li>
+                    {currentPage == 'dashboard' ? 
+                    (<li>
+                        <Image className={style.icon} src="/icon-home-selected.svg" width={0} height={0} alt="home icon" />
+                        <Link className={style.selected} href={'/dashboard/home'}>Dashboard</Link>
+                    </li>) : 
+                    (<li>
+                        <Image className={style.icon} src="/icon-home.svg" width={0} height={0} alt="home icon" />
                         <Link href={'/dashboard/home'}>Dashboard</Link>
-                    </li>
-                    <li>
-                        <Link href={'/dashboard/configuracoes'}>Configurações</Link>
-                    </li>
+                    </li>)}
+
+                    {currentPage == 'settings' ? 
+                    (<li>
+                        <Image className={style.icon} src="/icon-settings-selected.svg" width={0} height={0} alt="home icon" />
+                        <Link className={style.selected} href={'/dashboard/settings'}>Configurações</Link>
+                    </li>) : 
+                    (<li>
+                        <Image className={style.icon} src="/icon-settings.svg" width={0} height={0} alt="home icon" />
+                        <Link href={'/dashboard/settings'}>Configurações</Link>
+                    </li>)}
+                    
+                    
                 </ul>
             </nav>
 
             <div className={style.perfil}>
-                <Image src="/favicon.png" width={50} height={50} alt="icon"/>
                 {name != 'undefined' ? (<p>{name}</p>) : <p></p>}
-                <Link href={'/'}>sair</Link>
+                    
+                <Link href={'/'}>
+                    <Image className={style.icon} src="/icon-exit.svg" width={0} height={0} alt="icone de sair"/>Sair
+                </Link>
             </div>
         </div>
     )

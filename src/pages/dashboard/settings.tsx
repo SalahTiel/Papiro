@@ -1,10 +1,13 @@
-import Navbar from "@/components/Navbar/Navbar"
+import {Navbar} from "@/components/Navbar/Navbar"
 import { NameInput, EmailInput, PasswordInput } from "@/components/design_system/Inputs/Inputs"
 import { SubmitButton } from "@/components/design_system/Buttons/Buttons"
 
+import Head from "next/head"
+
+import style from '../../styles/pages.module.scss'
 import { useState } from "react"
 
-export default function Configuracoes(){
+export default function Settings(){
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -50,16 +53,27 @@ export default function Configuracoes(){
         console.log(response)
     }
     return<>
-        <Navbar/>
-        <h2>Consfigurações</h2>
-        <h3>Configurações da conta</h3>
-        <form onSubmit={UpdateUser}>
-            <NameInput handleFunction={changeInputValue} className=""/>
-            <EmailInput handleFunction={changeInputValue} className=""/>
-            <PasswordInput handleFunction={changeInputValue} className=""/>
-            <button>Deletar conta</button>
-            <SubmitButton text="atualizar"/>
-        </form>
+        <Head>
+            <title>Papiro | Configurações</title>
+            <link rel="icon" href="/favicon.png" type="image/x-icon"></link>
+        </Head>
+
+        <div className={style.settings}>
+            <Navbar currentPage={'settings'}/>
+            <div className={style.console}>
+                <h2>Consfigurações</h2>
+                <h3>Configurações da conta</h3>
+                <form onSubmit={UpdateUser}>
+                    <NameInput handleFunction={changeInputValue} className=""/>
+                    <EmailInput handleFunction={changeInputValue} className=""/>
+                    <PasswordInput handleFunction={changeInputValue} className=""/>
+                    <button>Deletar conta</button>
+                    <SubmitButton text="atualizar"/>
+                </form>
+            </div>
+            
+        </div>
+        
         
     </>
 }

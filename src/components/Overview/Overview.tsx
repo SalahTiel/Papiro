@@ -1,6 +1,7 @@
 import { NewPayer } from "../Forms/Forms"
 import { PayersList } from "../Registry/Registry"
 import { DebtList } from "../DebtList/DebtList"
+import Image from "next/image"
 
 import { useState, useEffect } from "react"
 
@@ -32,31 +33,36 @@ export default function Overview () {
     })
 
     useEffect(() =>{
-        const gambiarra = async () => {
+        const toggleLoadingStatus = async () => {
             const response = await getData()
             setLoading(false)
         }
-        gambiarra()
+        toggleLoadingStatus()
     },[])
 
-    useEffect(()=>{}, [])
 
     if(loading){
-        return <div>CORONÉR AIIIII, IAAAAA</div>
+        return <div>Carregando...</div>
     }
 
     return(
         <div className={style.grid}>
             <div>
                 <h2>Insights</h2>
-                <div>
+                <div className={style.insightsWrapper}>
                     <div className={style.card}>
-                        <p>n° de Pagantes :</p>
-                        <p>{totalPayers}</p>
+                        <p>n° de Pagantes</p>
+                        <div className={style.cardContent}>
+                            <Image src="/icon-person-dark.svg" width={0} height={0} alt="icone de uma pessoa"/>
+                            <p>{totalPayers}</p>
+                        </div>
                     </div>
                     <div className={style.card}>
-                        <p>receita :</p>
-                        <p>{revenue}</p>
+                        <p>receita</p>
+                        <div className={style.cardContent}>
+                            <Image src="/icon-coin-dark.svg" width={0} height={0} alt="icone de uma cifrão"/>
+                            <p className={style.revenue}><span>$ </span>{revenue}</p>
+                        </div>
                         
                     </div>
                 </div>
