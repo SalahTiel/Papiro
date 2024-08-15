@@ -47,9 +47,9 @@ export default function Overview () {
 
     return(
         <div className={style.grid}>
-            <div>
+            <div className={style.insightsWrapper}>
                 <h2>Insights</h2>
-                <div className={style.insightsWrapper}>
+                <div className={style.cardsWrapper}>
                     <div className={style.card}>
                         <p>n° de Pagantes</p>
                         <div className={style.cardContent}>
@@ -58,7 +58,7 @@ export default function Overview () {
                         </div>
                     </div>
                     <div className={style.card}>
-                        <p>receita</p>
+                        <p>Receita</p>
                         <div className={style.cardContent}>
                             <Image src="/icon-coin-dark.svg" width={0} height={0} alt="icone de uma cifrão"/>
                             <p className={style.revenue}><span>$ </span>{revenue}</p>
@@ -68,15 +68,17 @@ export default function Overview () {
                 </div>
             </div>
 
-            <div>
+            <div className={style.registerWrapper}>
                 <h2>Registrar</h2>
                 <NewPayer getDataFunction={getData}/>
             </div>
 
-            <div>
+            <div className={style.registrationWrapper}>
                 <h2>Registros</h2>
-                <PayersList payersArray={payers} refreshData={getData}/>
-                <DebtList debtsArray={debts} refreshData={getData}/>
+                <div className={style.listWrapper}>
+                    <PayersList payersArray={payers} refreshData={getData}/>
+                    <DebtList debtsArray={debts} refreshData={getData}/>
+                </div>
             </div>
         </div>
     )

@@ -1,5 +1,10 @@
 import style from './Buttons.module.scss'
 
-export function SubmitButton(prop: {text : string}){
-    return <button className={style.submit} type="submit">{prop.text}</button>
+interface button{
+    text: string;
+    buttonType: string
+}
+
+export const SubmitButton : React.FC<button> = ({text, buttonType}) => {
+    return <button className={`${style.submit} ${style[buttonType]}`} type="submit">{text}</button>
 }

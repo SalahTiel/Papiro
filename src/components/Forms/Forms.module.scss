@@ -1,6 +1,6 @@
 @use '../../styles/variables' as var;
 
-.form{
+.logForm{
     legend{
         font-size: var.$title;
         color: var.$dark;
@@ -30,8 +30,14 @@
             }
         }
     }
+}
 
+.newPayerForm{
     
+    .formRow{
+        display: flex;
+        gap: 1rem;
+    }
 }
 
 .errorFormMessage{

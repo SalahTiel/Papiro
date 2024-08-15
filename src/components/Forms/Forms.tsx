@@ -74,12 +74,12 @@ export function LoginForm(){
     }
 
     return(
-    <form className={style.form} onSubmit={login}>
+    <form className={style.logForm} onSubmit={login}>
         <legend>Olá! Faça login:</legend>
         <span id="errorMessage" className={style.errorFormMessage}>credencias inválidas</span>
-        <EmailInput handleFunction={changeInputValue} className={Inputstyle.logInput} />
-        <PasswordInput handleFunction={changeInputValue} className={Inputstyle.logInput}/>
-        <SubmitButton text="Entrar"/>
+        <EmailInput handleFunction={changeInputValue} className={Inputstyle.signInInput} />
+        <PasswordInput handleFunction={changeInputValue} className={Inputstyle.signInInput}/>
+        <SubmitButton buttonType="" text="Entrar"/>
         <div className={style.invite}>
             <p>novo por aqui?</p>
             <Link className={style.link} href="/register">Registre-se</Link>
@@ -160,13 +160,13 @@ export function RegisterForm(){
     //conditional rendering
     if(!newUserRegistered){
         return(
-            <form className={style.form} onSubmit={registerUser}>
+            <form className={style.logForm} onSubmit={registerUser}>
                 <legend>Olá! Registre-se:</legend>
                 <span className={style.errorFormMessage}>email inválido</span>
-                <NameInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
-                <EmailInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
-                <PasswordInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
-                <SubmitButton text="Registrar"/>
+                <NameInput handleFunction={changeInputValue} className={Inputstyle.signUpInput}/>
+                <EmailInput handleFunction={changeInputValue} className={Inputstyle.signUpInput}/>
+                <PasswordInput handleFunction={changeInputValue} className={Inputstyle.signUpInput}/>
+                <SubmitButton buttonType="" text="Registrar"/>
                 <div className={style.invite}>
                     <Link className={style.link} href="/">Ir para login</Link>
                 </div>
@@ -244,13 +244,19 @@ export const NewPayer : React.FC<FunctionalComponente> = ({getDataFunction}) =>{
     }, [refreshData])
 
     return(
-        <form onSubmit={registerNewPayer}>
-            <NameInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
-            <DateInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
-            <NumberInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
-            <TelInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
-            <EmailInput handleFunction={changeInputValue} className={Inputstyle.inputWrapper}/>
-            <SubmitButton text="registrar"/>
+        <form className={style.newPayerForm} onSubmit={registerNewPayer}>
+            <div className={style.formRow}>
+                <NameInput handleFunction={changeInputValue} className={Inputstyle.registerPayerInput}/>
+                <SubmitButton buttonType="registerButton" text="Registrar"/>
+            </div>
+            <div className={style.formRow}>
+                <NumberInput handleFunction={changeInputValue} className={Inputstyle.registerPayerInput}/>
+                <DateInput handleFunction={changeInputValue} className={Inputstyle.registerPayerInput}/>
+            </div>
+            <div className={style.formRow}>
+                <TelInput handleFunction={changeInputValue} className={Inputstyle.registerPayerInput}/>
+                <EmailInput handleFunction={changeInputValue} className={Inputstyle.registerPayerInput}/>
+            </div>
         </form>
     )
 }
