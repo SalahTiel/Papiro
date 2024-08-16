@@ -16,3 +16,77 @@
         //height: 100%;
     }
 }
+
+.settings{
+
+    .console{
+        width: 40%;
+
+        h2{
+            font-size: var.$title;
+            font-weight: 700;
+            color: var.$dark;
+            margin-bottom: 1rem;
+        }
+        h3{
+            font-size: var.$subtitle;
+            color: var.$gray;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+    }
+    .row{
+        display: flex;
+        align-items: start;
+
+        p{
+            width: 30%;
+            font-size: var.$regular;
+            color: var.$dark;
+            font-weight: 400;
+        }
+    }
+    .info{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+
+        p{
+            width: max-content;
+            font-size: var.$regular;
+            color: var.$gray;
+            font-weight: 400;
+        }
+    }
+
+    .buttons{
+        display: flex;
+        justify-content: space-between;
+
+        button{
+            width: 45%;
+            border: none;
+        }
+        & .delete{
+            background-color: var.$red;
+            border-radius: var.$border-radius;
+            font-size: var.$regular;
+            font-weight: 700;
+            color: var.$light;
+
+            &:hover{
+                background-color: var.$gray;
+                transition: all 300ms;
+            }
+        }
+    }
+
+}
+
+.icon{
+    width: 2rem;
+    height: auto;
+}

@@ -8,7 +8,6 @@ interface navbarProps{
 }
 
 export const Navbar : React.FC<navbarProps> = ({currentPage}) => {
-    console.log(currentPage)
     const [name, setName] = useState<string | null>('')
 
     useEffect(()=>{

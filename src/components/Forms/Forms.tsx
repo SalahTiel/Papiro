@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import {UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, updateProfile} from "firebase/auth"
+import {UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile} from "firebase/auth"
 import {doc, setDoc, getDoc} from "firebase/firestore"
 import {auth, db} from "../../services/firebaseConfig"
 

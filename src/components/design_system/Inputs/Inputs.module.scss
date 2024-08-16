@@ -29,7 +29,7 @@
 .signInInput, .signUpInput{
     @include formattedInputWrapper(var.$dark);
 }
-.registerPayerInput{
+.registerPayerInput, .settingsAccountInput{
     @include formattedInputWrapper(var.$light)
 }
 
