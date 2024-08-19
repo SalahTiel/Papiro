@@ -175,14 +175,13 @@ export function RegisterForm(){
     }
     else{
         return(
-            <div>
-                <p>novo usuário registrado. Faça login</p>
-                <Link href="/">fazer login</Link>
+            <div className={style.registeredUser}>
+                <p>Novo usuário registrado.</p>
+                <Link href="/">Ir para Login</Link>
             </div>
         )
     }
 }
-
 
 interface FunctionalComponente{
     getDataFunction : () => {}

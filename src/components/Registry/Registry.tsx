@@ -21,6 +21,7 @@ export const PayersList : React.FC<PayersList> = ({payersArray = [], refreshData
     const [modalOpen, setModalOpen] = useState(false)
     const [payerData, setPayerData] = useState({id: '', name: '', value: '', date: '', email: '', tel: ''})
     const [uid, setUid] = useState<string | null>(localStorage.getItem('uid'))
+    const [confirmDelete, setConfirmDelete] = useState(false)
 
     async function getPayersList (payerId : string){
         if(uid){
@@ -40,12 +41,14 @@ export const PayersList : React.FC<PayersList> = ({payersArray = [], refreshData
         }
     }, [modalOpen])
 
+
     async function deletePayer(payerId : string){
         const response = await fetch(`http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/${uid}/query?payer=${payerId}`,{
             method: 'DELETE',
         })
         setModalOpen(!modalOpen)
         refreshData()
+        setConfirmDelete(false)
     }
     async function regularizePayer(payerdId : string) {
         const response = await fetch(`http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/regularizedebt/${uid}/query?payer=${payerdId}`)
@@ -115,10 +118,21 @@ export const PayersList : React.FC<PayersList> = ({payersArray = [], refreshData
                         }
                     </ul>
 
-                    <div className={style.buttons}>
-                        <button className={style.deleteButton} onClick={()=>{deletePayer(selectedPayer)}}>Deletar pagante</button>
-                        <button className={style.regularizeButton} onClick={()=>{regularizePayer(selectedPayer)}}>Adiantar pagamento</button>
-                    </div>
+                    {confirmDelete ? (
+                        <div className={style.confirmDelete}>
+                            <p>Por favor, confirme a exclusão do pagante</p>
+                            <div className={style.deleteButtons}>
+                                <button className={style.deleteButton} onClick={()=>{deletePayer(selectedPayer)}}>Deletar pagante</button>
+                                <button className={style.cancelButton} onClick={()=>{setConfirmDelete(false)}}>Cancelar</button>
+                            </div>
+                        </div>                        
+                    ): (
+                        <div className={style.buttons}>
+                            <button className={style.deleteButton} onClick={()=>{setConfirmDelete(true)}}>Deletar pagante</button>
+                            <button className={style.regularizeButton} onClick={()=>{regularizePayer(selectedPayer)}}>Adiantar pagamento</button>
+                        </div>
+                    )}
+                    
                 </div>
             )}
         </div>

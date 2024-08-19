@@ -32,6 +32,28 @@
     }
 }
 
+.registeredUser{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p{
+        margin-bottom: 1rem;
+        font-size: var.$regular;
+        color: var.$dark;
+    }
+    
+    a{
+        font-size: var.$regular;
+        text-decoration: none;
+        color: var.$main;
+
+        &:hover{
+            font-weight: 700;
+        }
+    }
+}
+
 .newPayerForm{
     
     .formRow{
