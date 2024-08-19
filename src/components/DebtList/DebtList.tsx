@@ -26,7 +26,7 @@ export const DebtList : React.FC<PayersList> = ({debtsArray = [], refreshData}) 
 
     async function getDebtPayer (payerId : string){
         if(uid){
-            const response = await fetch(`http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/${uid}/query?payer=${payerId}`)
+            const response = await fetch(`https://us-central1-papiro-77c3c.cloudfunctions.net/App/${uid}/query?payer=${payerId}`)
             const data = await response.json()
             setPayerData(data)
         }
@@ -45,14 +45,14 @@ export const DebtList : React.FC<PayersList> = ({debtsArray = [], refreshData}) 
     }, [modalOpen])
 
     async function deletePayer(payerId : string){
-        const response = await fetch(`http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/${uid}/query?payer=${payerId}`,{
+        const response = await fetch(`https://us-central1-papiro-77c3c.cloudfunctions.net/App/${uid}/query?payer=${payerId}`,{
             method: 'DELETE',
         })
         setModalOpen(!modalOpen)
         refreshData()
     }
     async function regularizePayer(payerdId : string) {
-        const response = await fetch(`http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/regularizedebt/${uid}/query?payer=${payerdId}`)
+        const response = await fetch(`https://us-central1-papiro-77c3c.cloudfunctions.net/App/${uid}/query?payer=${payerdId}`)
         setModalOpen(!modalOpen)
         refreshData()
     }

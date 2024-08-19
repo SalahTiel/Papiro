@@ -17,7 +17,7 @@ export default function Overview () {
 
     async function getData () {
         if(uid){
-            const response = await fetch(`http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/${uid}`)
+            const response = await fetch(`https://us-central1-papiro-77c3c.cloudfunctions.net/App/${uid}`)
             const data = await response.json()
             setPayers(data.payersData)
             setDebts(data.debtlist)

@@ -223,7 +223,7 @@ export const NewPayer : React.FC<FunctionalComponente> = ({getDataFunction}) =>{
         if(name.length > 0 && date && value > 0){
             setRefreshData(true)
             const data = {name, date, value, tel, email}
-            const response = await fetch(`http://127.0.0.1:5001/papiro-77c3c/us-central1/helloWorld/${uid}`,
+            const response = await fetch(`https://us-central1-papiro-77c3c.cloudfunctions.net/App/${uid}`,
             {
                 method: "POST",
                 body:  JSON.stringify(data),
